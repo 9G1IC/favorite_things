@@ -8,5 +8,7 @@ router.register('favorites', FavoriteViewSet, base_name="favorites")
 
 urlpatterns = [
         path("addFavorite/", FavoriteNew.as_view(), name="new_favorite"),
+        path("updateFavorite/<int:pk>", FavoriteDetail.as_view(), name="update_favorite"),
         ]
+
 urlpatterns += router.urls
