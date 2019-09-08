@@ -58,7 +58,7 @@ class Favorites(models.Model):
             created_at=str(self.created_at),
             description=self.description,
             changeLog=self.changeLog,
-            category= self.category_id,
+            category=self.category_id,
             id=self.id,
             meta=self.meta
         )

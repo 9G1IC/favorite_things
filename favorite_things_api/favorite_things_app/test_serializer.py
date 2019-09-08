@@ -19,9 +19,11 @@ class TestFavoriteViewSet(APITestCase):
         """Test POST method with invalid data to create a new favorite """
         # Create instances
         fav = self.favorite
+
         self.view = FavoriteViewSet.as_view({'post': 'create'})
         self.uri = '/addFavorite/'
-        fav_json = json.dumps(fav.as_json())
+        temp = fav.as_json().pop('category')
+        fav_json = json.dumps(temp)
             
         request = self.factory.post(
             reverse("new_favorite"),
@@ -30,6 +32,7 @@ class TestFavoriteViewSet(APITestCase):
         response = self.view(request)
             
         status = response.status_code
+            
         self.assertEqual(
             status,
             400,
@@ -65,6 +68,7 @@ class TestFavoriteViewSet(APITestCase):
         # Create instances
         fav1 = self.favorite
         fav2 = Favorites.objects.create(pk=2, title="new", category_id=1,rank=1)
+
         self.uri = '/addFavorite/'
         fav_json_1 = json.dumps(fav1.as_json())
         fav_json_2 = json.dumps(fav2.as_json())
