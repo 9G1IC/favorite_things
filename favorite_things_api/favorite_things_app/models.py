@@ -64,6 +64,8 @@ class Favorites(models.Model):
         )
 
     def __init__(self, *args, **kwargs):
+        #derive the hash for the change log
         kwargs = self.compute_hash(self, *args, **kwargs)
+        #propage the hash
         super().__init__(*args, **kwargs)
         return
