@@ -13,6 +13,9 @@ class Categories(models.Model):
     def __str__(self):
         return self.name
 
+    """
+        as_json is needed to be able to make it JSON convertable during test
+    """
     def as_json(self):
         return dict(name=self.name)
 
@@ -45,6 +48,20 @@ class Favorites(models.Model):
         computed_hash = hash_object.hexdigest()
         kwargs['changeLog'] = computed_hash
         return kwargs
+    """
+        as_json is needed to be able to make it JSON convertable during test
+    """
+    def as_json(self):
+        return dict(
+            title=self.title,
+            rank=self.rank,
+            modified_at=str(self.modified_at),
+            created_at=str(self.created_at),
+            description=self.description,
+            changeLog=self.changeLog,
+            category_id=self.category_id,
+            meta=self.meta
+        )
 
     def __init__(self, *args, **kwargs):
         kwargs = self.compute_hash(self, *args, **kwargs)
