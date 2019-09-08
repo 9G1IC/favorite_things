@@ -11,11 +11,14 @@ class TestFavoriteViewSet(APITestCase):
         self.factory = APIRequestFactory()
         self.view = FavoriteViewSet.as_view({'get': 'list'})
         self.uri = '/favorites/'
+        self.category = Categories.objects.create(pk=1, name="Action")
+        self.category.save()
+        self.favorite = Favorites.objects.create(pk=1,title="Setup Testing",category_id=1)
 
     def test_create_with_invalid_data(self):
         """Test POST method with invalid data to create a new favorite """
         # Create instances
-        fav = Favorites.objects.create(pk=1, title="testing")
+        fav = self.favorite
         self.view = FavoriteViewSet.as_view({'post': 'create'})
         self.uri = '/addFavorite/'
         fav_json = json.dumps(fav.as_json())
@@ -37,9 +40,7 @@ class TestFavoriteViewSet(APITestCase):
     def test_create_with_valid_data(self):
         """Test POST method with invalid data to create a new favorite """
         # Create instances
-        cat = Categories.objects.create(pk=1, name="Action")
-        cat.save()
-        fav = Favorites.objects.create(pk=1, title="testing",category_id=1)
+        fav = self.favorite
         self.view = FavoriteViewSet.as_view({'post': 'create'})
         self.uri = '/addFavorite/'
         fav_json = json.dumps(fav.as_json())
@@ -63,12 +64,13 @@ class TestFavoriteViewSet(APITestCase):
         """Test that the ranking order does not repeat"""
         self.view = FavoriteViewSet.as_view({'post': 'create'})
         # Create instances
-        cat = Categories.objects.create(pk=1, name="Action")
-        fav1 = Favorites.objects.create(pk=1, title="testing", category=cat, category_id=1,rank=1)
-        fav2 = Favorites.objects.create(pk=2, title="new", category=cat, category_id=1,rank=1)
+        fav1 = self.favorite
+        fav2 = Favorites.objects.create(pk=2, title="new", category_id=1,rank=1)
         self.uri = '/addFavorite/'
         fav_json_1 = json.dumps(fav1.as_json())
         fav_json_2 = json.dumps(fav2.as_json())
+            
+        import pdb;pdb.set_trace()
         #post the first instance
         request1 = self.factory.post(
             reverse("new_favorite"),
@@ -94,14 +96,15 @@ class TestFavoriteViewSet(APITestCase):
     def test_update(self):
         """Testing PUT method with valid data to update an existing a new favorite """
         # Create instances
-        cat = Categories.objects.create(pk=1, name="Action")
-        fav = Favorites.objects.create(pk=1,title="Original", category_id=1)
+        fav = self.favorite
         #save
         fav.save()
         self.view = FavoriteViewSet.as_view({'put': 'update'})
         #modify the fav_json
         temp = fav.as_json()
         temp['title'] = "modified"
+            
+        import pdb;pdb.set_trace()
         fav_json = json.dumps(temp)
         self.uri = '/updateFavorite/'
 

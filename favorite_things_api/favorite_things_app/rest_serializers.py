@@ -17,12 +17,8 @@ class FavoriteSerializer(serializers.ModelSerializer):
     def create(self, data,*args,**kwargs):
         #get all instances of records in the category of data
         if 'category' in data:
-            all_records_with_input_category = Favorites.objects.get(category=data['category'])
+            all_records_with_input_category = Favorites.objects.filter(category=data['category'])
         return data
-
-        # TODO:include category
-        instance.save()
-        return instance
 
     def update(self, instance, data):
         # Recalculate hash

@@ -8,7 +8,9 @@ Testing Models
 
 class TestFavoriteModel(TestCase):
     def setUp(self):
-        self.favorite = Favorites.objects.create()
+        self.favorite = Favorites.objects.create(category_id=1)
+        self.category = Categories.objects.create(pk=1, name="Action")
+        self.category.save()
             
     def test_compute_hash(self):
         self.assertNotEqual(self.favorite.changeLog,"","Expected hash in changeLog")

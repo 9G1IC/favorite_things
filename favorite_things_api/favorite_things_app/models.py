@@ -58,7 +58,8 @@ class Favorites(models.Model):
             created_at=str(self.created_at),
             description=self.description,
             changeLog=self.changeLog,
-            category=1,
+            category=self.category.as_json() or self.category_id,
+            id=self.id,
             meta=self.meta
         )
 
