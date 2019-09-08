@@ -31,6 +31,9 @@ class Favorites(models.Model):
 
     def __str__(self):
         return "{}|{}".format(self.title,self.description)
+    """
+	Implementing quasi-blockchain instead of  GUID to detect change to the content
+    """
 
     def compute_hash(self,*args,**kwargs):
         import hashlib
@@ -39,3 +42,8 @@ class Favorites(models.Model):
         computed_hash = hash_object.hexdigest()
         kwargs['changeLog'] = computed_hash
         return kwargs
+
+    def __init__(self, *args, **kwargs):
+        kwargs = self.compute_hash(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
+        return
