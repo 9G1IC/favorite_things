@@ -68,6 +68,7 @@ class TestFavoriteViewSet(APITestCase):
         # Create instances
         fav1 = self.favorite
         fav2 = Favorites.objects.create(pk=2, title="new", category_id=1,rank=1)
+        fav2.save()
 
         self.uri = '/addFavorite/'
         fav_json_1 = json.dumps(fav1.as_json())
