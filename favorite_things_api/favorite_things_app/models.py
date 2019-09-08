@@ -2,8 +2,6 @@ from django.db import models
 from django_postgres_extensions.models.fields import HStoreField
 from django.core.validators import MaxValueValidator
 
-# Create your models here.
-
 class Categories(models.Model):
     # Ensure the name is unique
     id = models.AutoField(primary_key=True)
@@ -18,20 +16,26 @@ class Categories(models.Model):
     def as_json(self):
         return dict(name=self.name)
 
-
 class Favorites(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    changeLog = models.CharField(blank=True,max)
+    changeLog = models.CharField(blank=True,max_length=256)
     category = models.ForeignKey(
             Categories,null=True,on_delete=models.CASCADE)
     meta = HStoreField(blank=True,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now=True)
     #Will be set on update
     modified_at = models.DateTimeField(auto_now=True)
-    rank = models.PositiveIntegerField(
-            default=0, validators[MaxValueValidator(5)])
+    rank = models.PositiveIntegerField(default=0, validator=[MaxValueValidator(5)])
 
     def __str__(self):
         return "{}|{}".format(self.title,self.description)
+
+    def compute_hash(self,*args,**kwargs):
+        import hashlib
+        string = str(kwargs)
+        hash_object = hashlib.sha256(bytes(string,encoded="utf-8"))
+        computed_hash = hash_object.hexdigest()
+        kwargs['changeLog'] = computed_hash
+        return kwargs

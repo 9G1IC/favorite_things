@@ -6,3 +6,4 @@ from django.apps import AppConfig
 
 class FavoriteThingsAppConfig(AppConfig):
     name = 'favorite_things_app'
+
