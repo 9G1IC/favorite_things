@@ -58,7 +58,7 @@ class Favorites(models.Model):
             created_at=str(self.created_at),
             description=self.description,
             changeLog=self.changeLog,
-            category=self.category.as_json() or self.category_id,
+            category= self.category_id,
             id=self.id,
             meta=self.meta
         )
@@ -66,6 +66,6 @@ class Favorites(models.Model):
     def __init__(self, *args, **kwargs):
         #derive the hash for the change log
         kwargs = self.compute_hash(self, *args, **kwargs)
-        #propage the hash
+        #propagate the hash
         super().__init__(*args, **kwargs)
         return

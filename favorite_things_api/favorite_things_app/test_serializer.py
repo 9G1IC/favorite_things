@@ -51,7 +51,6 @@ class TestFavoriteViewSet(APITestCase):
             content_type="application/json")
         response = self.view(request)
             
-            
         status = response.status_code
         self.assertEqual(
             status,
@@ -69,8 +68,6 @@ class TestFavoriteViewSet(APITestCase):
         self.uri = '/addFavorite/'
         fav_json_1 = json.dumps(fav1.as_json())
         fav_json_2 = json.dumps(fav2.as_json())
-            
-        import pdb;pdb.set_trace()
         #post the first instance
         request1 = self.factory.post(
             reverse("new_favorite"),
@@ -83,6 +80,9 @@ class TestFavoriteViewSet(APITestCase):
             data=fav_json_1,
             content_type="application/json")
         response2 = self.view(request2)
+            
+            
+        import pdb;pdb.set_trace()
         rank1 = response1.data['rank']
         rank2 = response2.data['rank']
         self.assertNotEqual(rank1,rank2,"Expected rank1:{} not be equal to rank2:{}".format(rank1,rank2))
@@ -104,7 +104,6 @@ class TestFavoriteViewSet(APITestCase):
         temp = fav.as_json()
         temp['title'] = "modified"
             
-        import pdb;pdb.set_trace()
         fav_json = json.dumps(temp)
         self.uri = '/updateFavorite/'
 
