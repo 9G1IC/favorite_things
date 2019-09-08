@@ -36,6 +36,9 @@ class Favorites(models.Model):
     """
 
     def compute_hash(self,*args,**kwargs):
+        """
+            Compute the hash of all the parameters of kwargs. It is modified, the hash will never be the same, just as in blockchain
+        """
         import hashlib
         string = str(kwargs)
         hash_object = hashlib.sha256(bytes(string,encoding="utf-8"))
