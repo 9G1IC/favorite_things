@@ -19,3 +19,19 @@ class Categories(models.Model):
         return dict(name=self.name)
 
 
+class Favorites(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    changeLog = models.CharField(blank=True,max)
+    category = models.ForeignKey(
+            Categories,null=True,on_delete=models.CASCADE)
+    meta = HStoreField(blank=True,on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now=True)
+    #Will be set on update
+    modified_at = models.DateTimeField(auto_now=True)
+    rank = models.PositiveIntegerField(
+            default=0, validators[MaxValueValidator(5)])
+
+    def __str__(self):
+        return "{}|{}".format(self.title,self.description)
