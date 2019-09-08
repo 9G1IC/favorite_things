@@ -7,12 +7,22 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Categories
         fields = '__all__'
 
-class FavoriteSerializer(WritableNestedModelSerializer):
-    category = CategorySerializer(required=False)
-
+class FavoriteSerializer(serializers.ModelSerializer):
+    category = serializers.SlugRelatedField(slug_field="id",queryset=Categories.objects.all(),required=True)
+        
     class Meta:
         model = Favorites
         fields = '__all__'
+
+    def create(self, data,*args,**kwargs):
+        #get all instances of records in the category of data
+        if 'category' in data:
+            all_records_with_input_category = Favorites.objects.get(category=data['category'])
+        return data
+
+        # TODO:include category
+        instance.save()
+        return instance
 
     def update(self, instance, data):
         # Recalculate hash

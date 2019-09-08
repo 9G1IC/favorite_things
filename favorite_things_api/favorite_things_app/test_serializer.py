@@ -12,11 +12,10 @@ class TestFavoriteViewSet(APITestCase):
         self.view = FavoriteViewSet.as_view({'get': 'list'})
         self.uri = '/favorites/'
 
-    def test_create(self):
-        """Test POST method with valid data to create a new favorite """
+    def test_create_with_invalid_data(self):
+        """Test POST method with invalid data to create a new favorite """
         # Create instances
-        cat = Categories.objects.create(pk=1, name="Action")
-        fav = Favorites.objects.create(pk=1, title="testing", category_id=1)
+        fav = Favorites.objects.create(pk=1, title="testing")
         self.view = FavoriteViewSet.as_view({'post': 'create'})
         self.uri = '/addFavorite/'
         fav_json = json.dumps(fav.as_json())
@@ -26,13 +25,65 @@ class TestFavoriteViewSet(APITestCase):
             data=fav_json,
             content_type="application/json")
         response = self.view(request)
+            
+        status = response.status_code
+        self.assertEqual(
+            status,
+            400,
+            "Expected 400 received, {} {}".format(
+                status,
+                response.data))
+
+    def test_create_with_valid_data(self):
+        """Test POST method with invalid data to create a new favorite """
+        # Create instances
+        cat = Categories.objects.create(pk=1, name="Action")
+        cat.save()
+        fav = Favorites.objects.create(pk=1, title="testing",category_id=1)
+        self.view = FavoriteViewSet.as_view({'post': 'create'})
+        self.uri = '/addFavorite/'
+        fav_json = json.dumps(fav.as_json())
+            
+        request = self.factory.post(
+            reverse("new_favorite"),
+            data=fav_json,
+            content_type="application/json")
+        response = self.view(request)
+            
+            
         status = response.status_code
         self.assertEqual(
             status,
             201,
-            "Expected 201 received, {} {}".format(
+            "Expected 201 received {},with error: {}".format(
                 status,
                 response.data))
+
+    def test_ranking_order_should_not_repeat(self):
+        """Test that the ranking order does not repeat"""
+        self.view = FavoriteViewSet.as_view({'post': 'create'})
+        # Create instances
+        cat = Categories.objects.create(pk=1, name="Action")
+        fav1 = Favorites.objects.create(pk=1, title="testing", category=cat, category_id=1,rank=1)
+        fav2 = Favorites.objects.create(pk=2, title="new", category=cat, category_id=1,rank=1)
+        self.uri = '/addFavorite/'
+        fav_json_1 = json.dumps(fav1.as_json())
+        fav_json_2 = json.dumps(fav2.as_json())
+        #post the first instance
+        request1 = self.factory.post(
+            reverse("new_favorite"),
+            data=fav_json_1,
+            content_type="application/json")
+        response1 = self.view(request1)
+        #post the second instance
+        request2 = self.factory.post(
+            reverse("new_favorite"),
+            data=fav_json_1,
+            content_type="application/json")
+        response2 = self.view(request2)
+        rank1 = response1.data['rank']
+        rank2 = response2.data['rank']
+        self.assertNotEqual(rank1,rank2,"Expected rank1:{} not be equal to rank2:{}".format(rank1,rank2))
 
     def test_name_category_conflict(self):
         #Should raise an exception when the fields are same
@@ -62,6 +113,7 @@ class TestFavoriteViewSet(APITestCase):
         response = self.view(request, pk=1)
         status = response.status_code
         body = response.data
+        #Ensure it is a success
         self.assertEqual(
             status,
             200,
@@ -76,6 +128,7 @@ class TestFavoriteViewSet(APITestCase):
         fh = fav.changeLog
         mh = body['changeLog']
 
+        #Ensure it is modified    
         self.assertNotEqual(
             ct,
             mt,

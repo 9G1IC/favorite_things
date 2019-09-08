@@ -24,8 +24,7 @@ class Favorites(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True)
     changeLog = models.CharField(blank=True,max_length=256)
-    category = models.ForeignKey(
-            Categories,null=True,on_delete=models.CASCADE)
+    category = models.ForeignKey( Categories,related_name="category",on_delete=models.CASCADE)
     meta = HStoreField(blank=True,null=True)
     created_at = models.DateTimeField(auto_now=True)
     #Will be set on update
@@ -59,7 +58,7 @@ class Favorites(models.Model):
             created_at=str(self.created_at),
             description=self.description,
             changeLog=self.changeLog,
-            category_id=self.category_id,
+            category=1,
             meta=self.meta
         )
 
