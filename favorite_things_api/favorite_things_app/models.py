@@ -23,11 +23,11 @@ class Favorites(models.Model):
     changeLog = models.CharField(blank=True,max_length=256)
     category = models.ForeignKey(
             Categories,null=True,on_delete=models.CASCADE)
-    meta = HStoreField(blank=True,on_delete=models.CASCADE)
+    meta = HStoreField(blank=True,null=True)
     created_at = models.DateTimeField(auto_now=True)
     #Will be set on update
     modified_at = models.DateTimeField(auto_now=True)
-    rank = models.PositiveIntegerField(default=0, validator=[MaxValueValidator(5)])
+    rank = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
 
     def __str__(self):
         return "{}|{}".format(self.title,self.description)
