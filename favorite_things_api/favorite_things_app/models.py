@@ -38,7 +38,7 @@ class Favorites(models.Model):
     def compute_hash(self,*args,**kwargs):
         import hashlib
         string = str(kwargs)
-        hash_object = hashlib.sha256(bytes(string,encoded="utf-8"))
+        hash_object = hashlib.sha256(bytes(string,encoding="utf-8"))
         computed_hash = hash_object.hexdigest()
         kwargs['changeLog'] = computed_hash
         return kwargs
