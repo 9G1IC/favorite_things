@@ -16,7 +16,7 @@ class FavoriteDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = FavoriteSerializer
     renderer_classes = [TemplateHTMLRenderer]
 
-    def put(self,request,pk):
+    def update(self,request,pk):
         import pdb;pdb.set_trace()
         item = get_object_or_404(Favorites, pk=pk)
         serializer = FavoriteSerializer(item, data=request.data)
