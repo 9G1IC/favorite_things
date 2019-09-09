@@ -92,7 +92,7 @@ class FavoriteNew(generics.CreateAPIView):
         return Response({"title": title, "header": header, "footer": footer,
                 "favorite_list": queryset })
 
-class FavoriteList(generics.ListAPIView):
+class FavoriteList(generics.ListCreateAPIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = "favorite/favoriteList.html"
     serializer_class = FavoriteSerializer
@@ -106,9 +106,23 @@ class FavoriteList(generics.ListAPIView):
             # redirect to form if empty
             self.template_name = "favorite/addFavorite.html"
             form = FavoriteForm()
-            return Response({"title": title, "header": header, "footer": footer,
-                "form": form})
+            return Response({"title": title, "header": header, "footer": footer,"form": form})
 
+    def post(self,request,*args,**kwargs):
+        data = request.data
+        serializer = FavoriteSerializer(data=data)
+            
+        if not serializer.is_valid():
+                #Use the same form to display the errors
+            import pdb;pdb.set_trace()
+            return Response({"title": title, "header": header, "footer": footer,
+		"favorite_list": [{"title":"Unable to save","description":str(serializer.error_messages)}] })
+        serializer.save()
+        #show the list
+        queryset = Favorites.objects.all()
+        self.template_name = "favorite/favoriteList.html"
+        return Response({"title": title, "header": header, "footer": footer,
+                "favorite_list": queryset })
 class FavoriteDetail(generics.RetrieveUpdateDestroyAPIView):
     template_name = "favorite/favoriteDetail.html"
     serializer_class = FavoriteSerializer
