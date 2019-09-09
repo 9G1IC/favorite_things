@@ -8,7 +8,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class FavoriteSerializer(serializers.ModelSerializer):
-    category = serializers.SlugRelatedField(slug_field="id",queryset=Categories.objects.all(),required=True)
+    category = serializers.PrimaryKeyRelatedField(queryset=Categories.objects.all(),required=True)
 
     class Meta:
         model = Favorites
@@ -42,6 +42,9 @@ class FavoriteSerializer(serializers.ModelSerializer):
         if 'category' in data:
             filtered_records = Favorites.objects.filter(category=data['category'])
             data = self.process_reorder(filtered_records,data)
+        #I had to handcraft this part cos, I have just about 15min on the clock    
+        buf = Favorites.objects.create(title=data['title'],description=data['description'], category=data['category'],rank=data['rank'])
+        buf.save()
         return data
 
     def update(self, instance, data):
