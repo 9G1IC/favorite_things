@@ -13,6 +13,8 @@ header = "header.html"
 footer = "footer.html"
 title = "Favorite App"
 
+class CategoryNew(generics.CreateAPIView):
+    pass
 
 class FavoriteNew(generics.CreateAPIView):
     template_name = "favorite/addFavorite.html"

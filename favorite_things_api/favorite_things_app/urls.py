@@ -16,7 +16,6 @@ urlpatterns = [
         path("updateFavorite/<int:pk>", FavoriteDetail.as_view(), name="update_favorite"),
         #Detail
         path("favorites/<int:pk>", FavoriteDetail.as_view(), name="get_favorite"),
-
         #Category
         path("addCategory/", CategoryNew.as_view(), name="new_category"),
         ]
