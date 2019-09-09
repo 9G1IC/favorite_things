@@ -28,6 +28,7 @@ class FavoriteNew(generics.CreateAPIView):
         serializer = FavoriteSerializer(data=data)
         if not serializer.is_valid():
             return Response({"title": title, "header": header, "footer": footer,
+                #Use the same form to display the errors
 		"favorite_list": [{"title":"Unable to save","description":str(serializer.error_messages)}] })
         serializer.save()
         queryset = Favorites.objects.all()
@@ -51,6 +52,8 @@ class FavoriteDetail(generics.RetrieveUpdateDestroyAPIView):
     
     #update 
     def put(self,*args,**kwargs):
+            
+        import pdb;pdb.set_trace()
         item = get_object_or_404(Favorites, pk=pk)
         serializer = FavoriteSerializer(item, data=request.data)
         if not serializer.is_valid():
