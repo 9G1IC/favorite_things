@@ -97,6 +97,18 @@ class TestFavoriteViewSet(APITestCase):
         #cat2 = Categories.objects.create(pk=2, name="Action")
         pass
         
+    def test_list_favorites(self):
+        self.view = FavoriteViewSet.as_view({'get':'list'})
+        self.uri = '/favorites/'
+        request = self.factory.get(self.uri)
+        response = self.view(request)
+        status = response.status_code
+        self.assertEqual(
+            status,
+            200,
+            "Expected 200 received, {}".format(status))
+
+
     def test_update(self):
         """Testing PUT method with valid data to update an existing a new favorite """
         # Create instances
