@@ -10,7 +10,7 @@ urlpatterns = [
         #Create
         path("addFavorite/", FavoriteNew.as_view(), name="new_favorite"),
         #Read
-        path("favorites/", FavoriteNew.as_view(), name="list_favorite"),
+        path("favorites/", FavoriteNew.as_view(), name="list_favorites"),
         #Update
         path("updateFavorite/<int:pk>", FavoriteDetail.as_view(), name="update_favorite"),
         #Detail
