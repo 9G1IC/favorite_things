@@ -32,7 +32,7 @@ class FavoriteNew(generics.CreateAPIView):
         serializer.save()
         queryset = Favorites.objects.all()
         #show the list
-        self.template_name = "favorite/favorites.html"
+        self.template_name = "favorite/favoriteList.html"
         return Response({"title": title, "header": header, "footer": footer,
                 "favorite_list": queryset })
 
