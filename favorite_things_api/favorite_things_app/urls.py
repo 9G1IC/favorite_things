@@ -4,6 +4,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register('favorites', FavoriteViewSet, base_name="favorites")
+router.register('categories', FavoriteViewSet, base_name="categories")
 
 
 urlpatterns = [
@@ -15,6 +16,9 @@ urlpatterns = [
         path("updateFavorite/<int:pk>", FavoriteDetail.as_view(), name="update_favorite"),
         #Detail
         path("favorites/<int:pk>", FavoriteDetail.as_view(), name="get_favorite"),
+
+        #Category
+        path("addCategory/", CategoryNew.as_view(), name="new_category"),
         ]
 
 urlpatterns += router.urls
