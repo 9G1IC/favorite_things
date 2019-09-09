@@ -1,0 +1,39 @@
+{
+	"$schema":"http://json-schema.org/draft-04/schema#",
+	"$id":"http://britecore.org.application/myself.json#",
+	"version":"2.2",
+	"title":"myself",
+	"description":"",
+	"type": "object",
+	"properties": 
+		"first_name": "Aaron",
+		"last_name":"Yankey",
+		"other_name":"Antwi",
+		"country":"Ghana",
+		"date_of_birth":"19/07/1986",
+		"marital_status":"married",
+		"description":"I am a software developer with over 7 years experience in Javascript, Python, and C. I thrive with backend solutions, and I am proficient with frontend development.",
+		"accomplishment":[
+			{
+				"title":"Python Software Foundation Fellow",
+				"description":"In August, 2019, I was inducted as a fellow of the PSF, in recognition of my contribution to the advancement of the language"
+			},
+			{
+				"title":"PSF Grants Committee Member",
+				"description":"In 2018, I was the first Ghanaian to sit as a voting member of the PSF grants committe"
+			},
+			{
+				"title":"Co-organizer of the first-ever Pan-African conference in Ghana, Pycon-Africa",
+				"description":"From the 6th to the 11th of August, 2019, I and my team made history be organising a successful conference in Ghana"
+			},
+			{
+				"title":"Chair of The Python Software Community in Ghana",
+				"description":"From 2017 to date, I am the first, and current chair of the Python Software Community in Ghana."
+			},
+			{
+				"title":"Pioneer of Space and Satellite Technology in Ghana",
+				"description":"Fron 2012 to 2017, I had help make Ghana a space-faring nation by contributing technically to the success of several projects launched by my previous organisation"
+			}
+		]
+	}
+}

@@ -1,5 +1,5 @@
 ## How Long I spent on the code
- --- I spent roughly 14 hours
+ --- I spent roughly 16 hours
 
 ##What will I add to my solution if given more time
 1. I will make the UI/UX better

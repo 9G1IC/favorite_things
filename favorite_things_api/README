@@ -35,8 +35,10 @@
 	I am using Pythonanywhere as my deployment platform because, my AWS account is expired, and I am unable to re-activate it at the moment
 
 
-##What could not complete:
+##What I could not complete:
 1. The UI/UX still needs some styling
-2. The default categories of Person,Food, and Place
-3. The deployment on AWS. I could not get an account due to credit card issues
-4. I used bootstrap instead of Vue.js
+2. The deployment on AWS. I could not get an account due to credit card issues
+3. I used django templating engine instead of Vue.js
+4. The ranking only sorts on new data. However, when the data is updated, there is a potential for duplicate records with the same category
+5. I did not test the saving of the meta data. In my case, the meta data is a JSON datatype, I did not test its serialization with DRF
+
