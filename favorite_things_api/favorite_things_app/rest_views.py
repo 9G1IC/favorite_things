@@ -20,15 +20,36 @@ class FavoriteNew(generics.CreateAPIView):
     renderer_classes = [TemplateHTMLRenderer]
 
     def get(self,request,*args,**kwargs):
-        import pdb;pdb.set_trace()
         form = FavoriteForm()
         return Response({"title": title, "header": header, "footer": footer,"form": form})
+
+    def create(self,request,*args,**kwargs):
+        data = request.data
+        serializer = FavoriteSerializer(data=data)
+        if not serializer.is_valid():
+            return Response({"title": title, "header": header, "footer": footer,
+		"favorite_list": [{"title":"Unable to save","description":str(serializer.error_messages)}] })
+        serializer.save()
+        queryset = Favorites.objects.all()
+        #show the list
+        self.template_name = "favorite/favorites.html"
+        return Response({"title": title, "header": header, "footer": footer,
+                "favorite_list": queryset })
+
 
 class FavoriteDetail(generics.RetrieveUpdateDestroyAPIView):
     template_name = "favorite/favoriteDetail.html"
     serializer_class = FavoriteSerializer
     renderer_classes = [TemplateHTMLRenderer]
 
+    #Read
+    def get(self, request, pk):
+        item = get_object_or_404(Favorites, pk=pk)
+        form = FavoriteForm(instance=item)
+        return Response({"title": title, "header": header, "footer": footer,
+            "form": form})
+    
+    #update 
     def put(self,*args,**kwargs):
         item = get_object_or_404(Favorites, pk=pk)
         serializer = FavoriteSerializer(item, data=request.data)

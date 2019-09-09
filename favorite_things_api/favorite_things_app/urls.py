@@ -13,6 +13,8 @@ urlpatterns = [
         path("favorites/", FavoriteNew.as_view(), name="list_favorite"),
         #Update
         path("updateFavorite/<int:pk>", FavoriteDetail.as_view(), name="update_favorite"),
+        #Detail
+        path("favorites/<int:pk>", FavoriteDetail.as_view(), name="get_favorite"),
         ]
 
 urlpatterns += router.urls
