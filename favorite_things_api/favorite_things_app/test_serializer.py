@@ -1,4 +1,5 @@
-from rest_framework.test import APITestCase, APIRequestFactory
+from rest_framework.test import APITestCase, APIRequestFactory,APIClient
+
 from rest_framework.reverse import reverse
 from favorite_things_app.rest_views import *
 import json
@@ -159,3 +160,16 @@ class TestFavoriteViewSet(APITestCase):
             "Expected Created Log not to equal updated Log received, {} {}".format(
                 fh,
                 mh))
+
+
+class TestClientFavoriteViewSet(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+        
+    def test_client_add_view(self):
+        client = self.client
+        uri = '/addFavorite/'
+        response = client.get(uri)
+        #It should return dictionary with form are a key
+        form = response.data
+        self.assertContains(form,"form","Expected response to contain form keyword {}".format(form))

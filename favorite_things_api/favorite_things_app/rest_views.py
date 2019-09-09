@@ -9,7 +9,14 @@ from favorite_things_app.models import *
 from favorite_things_app.rest_serializers import *
 
 class FavoriteNew(generics.CreateAPIView):
-    pass
+    template_name = "favorite/addFavorite.html"
+    serializer_class = FavoriteSerializer
+    renderer_classes = [TemplateHTMLRenderer]
+
+    def get(self,request,*args,**kwargs):
+        import pdb;pdb.set_trace()
+        form = FavoriteForm()
+        return Response({"title": title, "header": header, "footer": footer,"form": form})
 
 class FavoriteDetail(generics.RetrieveUpdateDestroyAPIView):
     template_name = "favorite/favoriteDetail.html"

@@ -31,7 +31,6 @@ class FavoriteSerializer(serializers.ModelSerializer):
     #Main reordering engine
     def reorder(self,record,data):
         if record.rank == data['rank']:
-            print(record.title,data['title'])
             #This is assuming the lower the rank, the higher the priority
             record.rank = record.rank + 1
             record.save()
