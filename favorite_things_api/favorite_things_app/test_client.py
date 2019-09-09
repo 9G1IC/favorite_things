@@ -44,8 +44,8 @@ class TestClientFavoriteViewSet(APITestCase):
         response = client.get(uri)
             
         #It should return dictionary with form are a key
-        form = response.data
-        self.assertIn('form',form,"Expected response to contain form keyword {}".format(form))
+        code = response.status_code
+        self.assertEqual(code,301,"Expected response to redirect ")
 
     def test_client_update_record(self):
         client = self.client

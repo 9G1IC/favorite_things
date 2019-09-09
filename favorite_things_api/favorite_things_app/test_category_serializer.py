@@ -53,7 +53,7 @@ class TestCategoryViewSet(APITestCase):
         status = response.status_code
         self.assertEqual(
             status,
-            201,
-            "Expected 201 received {},with error: {}".format(
+            400,
+            "Expected 400 received {},with error: {}".format(
                 status,
                 response.data))
