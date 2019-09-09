@@ -13,7 +13,7 @@ class TestFavoriteViewSet(APITestCase):
         self.uri = '/favorites/'
         self.category = Categories.objects.create(pk=1, name="Action")
         self.category.save()
-        self.favorite = Favorites.objects.create(pk=1,title="Setup Testing",category_id=1)
+        self.favorite = Favorites.objects.create(pk=1,title="Setup Testing",category_id=1,rank=1)
 
     def test_create_with_invalid_data(self):
         """Test POST method with invalid data to create a new favorite """
@@ -82,14 +82,13 @@ class TestFavoriteViewSet(APITestCase):
         #post the second instance
         request2 = self.factory.post(
             reverse("new_favorite"),
-            data=fav_json_1,
+            data=fav_json_2,
             content_type="application/json")
         response2 = self.view(request2)
+        all_records = Favorites.objects.all()
             
-            
-        import pdb;pdb.set_trace()
-        rank1 = response1.data['rank']
-        rank2 = response2.data['rank']
+        rank1 = all_records[0].rank
+        rank2 = all_records[1].rank
         self.assertNotEqual(rank1,rank2,"Expected rank1:{} not be equal to rank2:{}".format(rank1,rank2))
 
     def test_name_category_conflict(self):

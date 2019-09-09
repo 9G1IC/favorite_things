@@ -29,7 +29,7 @@ class Favorites(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     #Will be set on update
     modified_at = models.DateTimeField(auto_now=True)
-    rank = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(5)])
+    rank = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return "{}|{}".format(self.title,self.description)
