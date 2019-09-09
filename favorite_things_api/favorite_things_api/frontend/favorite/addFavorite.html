@@ -1,0 +1,17 @@
+{%load static%}
+{%load bootstrap4 %}
+{%include header%}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% bootstrap_messages %}
+
+<div class="card_size">
+	<form action="/favorites/" method="post" class="form">
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		{% buttons %}
+		<button type="submit" class="btn btn-primary">Add</button>
+		{% endbuttons %}
+	</form>
+</div>
+{%include footer%}

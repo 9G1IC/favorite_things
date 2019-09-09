@@ -172,4 +172,4 @@ class TestClientFavoriteViewSet(APITestCase):
         response = client.get(uri)
         #It should return dictionary with form are a key
         form = response.data
-        self.assertContains(form,"form","Expected response to contain form keyword {}".format(form))
+        self.assertContains(form,['form'],"Expected response to contain form keyword {}".format(form))

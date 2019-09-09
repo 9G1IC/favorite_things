@@ -6,7 +6,13 @@ from django.forms import modelformset_factory
 
 # Import local modules
 from favorite_things_app.models import *
+from favorite_things_app.forms import *
 from favorite_things_app.rest_serializers import *
+
+header = "header.html"
+footer = "footer.html"
+title = "Favorite App"
+
 
 class FavoriteNew(generics.CreateAPIView):
     template_name = "favorite/addFavorite.html"

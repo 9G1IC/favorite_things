@@ -53,10 +53,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'favorite_things_api.urls'
 
+FRONTEND = os.path.join(BASE_DIR, "favorite_things_api/frontend")
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [FRONTEND],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
