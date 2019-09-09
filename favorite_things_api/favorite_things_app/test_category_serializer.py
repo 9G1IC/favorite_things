@@ -15,10 +15,10 @@ class TestCategoryViewSet(APITestCase):
         self.category.save()
 
     def test_create_with_invalid_data(self):
-        """Test POST method with invalid data to create a new favorite """
+        """Test POST method with invalid data to create a new categories """
         # Create instances
 
-        self.view = FavoriteViewSet.as_view({'post': 'create'})
+        self.view = CategoryViewSet.as_view({'post': 'create'})
         self.uri = '/addCategory/'
         cat = Categories.objects.create()
         cat_json = json.dumps(cat.as_json())
@@ -28,12 +28,32 @@ class TestCategoryViewSet(APITestCase):
             data=cat_json,
             content_type="application/json")
         response = self.view(request)
-            
         status = response.status_code
             
         self.assertEqual(
             status,
             400,
             "Expected 400 received, {} {}".format(
+                status,
+                response.data))
+
+    def test_create_with_valid_data(self):
+        """Test POST method with invalid data to create a new categories """
+        # Create instances
+        cat = Categories.objects.create(pk=2, name="Cut")
+        self.view = CategoryViewSet.as_view({'post': 'create'})
+        self.uri = '/addCategory/'
+        cat_json = json.dumps(cat.as_json())
+            
+        request = self.factory.post(
+            reverse("new_category"),
+            data=cat_json,
+            content_type="application/json")
+        response = self.view(request)
+        status = response.status_code
+        self.assertEqual(
+            status,
+            201,
+            "Expected 201 received {},with error: {}".format(
                 status,
                 response.data))

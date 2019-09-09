@@ -28,6 +28,16 @@ class TestClientFavoriteViewSet(APITestCase):
         form = response.data
         self.assertIn('form',form,"Expected response to contain form keyword {}".format(form))
 
+    def test_client_get(self):
+        client = self.client
+        uri = '/favorites/'
+        response = client.get(uri)
+            
+        #It should return dictionary with form are a key
+        form = response.data
+        self.assertIn('favorite_list',form,"Expected response to contain form keyword {}".format(form))
+
+
     def test_client_get_detail(self):
         client = self.client
         uri = '/favorites/1'
