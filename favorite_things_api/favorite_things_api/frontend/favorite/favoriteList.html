@@ -1,0 +1,37 @@
+{%load static%}
+{%load bootstrap4 %}
+{%include header%}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<form action="/addFavorite">
+	{% buttons %}
+	<button type="submit" class="btn btn-primary">Add New Favorite</button>
+	{% endbuttons %}
+</form>
+<div class="list-group card_size d-flex">
+	<ol>
+		{%for item in favorite_list %}
+		<a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+			<small>id: {{item.id}}</small>
+			<div class="d-flex w-100 justify-content-between">
+				<h5 class="mb-1">{{item.title}}</h5>
+				<small>category: {{item.category.name}}</small>
+				<small>rank: {{item.rank}}</small>
+			</div>
+			<div class="d-flex w-100 justify-content-between">
+				<p class="mb-1">Description {{item.description}}</p>
+				<p class="mb-1">Meta data: {{item.meta}}</p>
+			</div>
+			<small>Created At: {{item.created_at}}</small>
+			<small>Modified At: {{item.modified_at}}</small>
+		</a>
+		{%endfor%}
+	</ol>
+</div>
+{%include footer%}
+
