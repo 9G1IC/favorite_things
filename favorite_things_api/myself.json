@@ -5,8 +5,8 @@
 	"title":"myself",
 	"description":"",
 	"type": "object",
-	"properties": 
-		"first_name": "Aaron",
+	"properties":{ 
+		"first_name":"Aaron",
 		"last_name":"Yankey",
 		"other_name":"Antwi",
 		"country":"Ghana",
