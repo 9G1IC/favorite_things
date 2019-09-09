@@ -1,0 +1,42 @@
+#Usage:
+	To add a new favorite: /addFavorite
+	To update a favorite item: /updateFavorite/#
+	To view all favorites: /favorites
+	To add a new category: /addCategory
+	To view all categories: /categories 
+	
+#Setup development environment
+	1. virtualenv favorite_things
+	2. pip install "all dependencies"
+	3. create project and app 
+	4. create git repo and commit
+	5. create and checkout development branch
+
+#Environment	
+	1. OS 		    - Linux 4.20.0-042000-generic, Ubuntu 18.04 
+	2. Server Framework - Django
+	3. Backend Database - Postgres 10
+	4. ORM 		    - Django
+	5. Deployment	    - PythonAnywhere
+	6. Python 	    - v 3.6.8
+	
+
+#Plan: I am using the Out-In development style
+	1. Getting a good frontend in bootstrap. I am not familiar with Vue.js (Better with Angularjs)
+	2. Creating migrations to test frontend, using db.sqlit3 for now
+ 	3. Setting up Django Rest Framework using Viewset, and routers.
+		pip install djangorestframework djangorestframework-hstore(for meta data)
+		Added rest_serializer.py and rest_views.py
+	4. Preliminary test with ipython before pytest
+	5. Adding forms
+	6. Testing
+
+#Deployment:
+	I am using Pythonanywhere as my deployment platform because, my AWS account is expired, and I am unable to re-activate it at the moment
+
+
+##What could not complete:
+1. The UI/UX still needs some styling
+2. The default categories of Person,Food, and Place
+3. The deployment on AWS. I could not get an account due to credit card issues
+4. I used bootstrap instead of Vue.js

@@ -1,0 +1,20 @@
+{%load static%}
+{%load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% bootstrap_messages %}
+
+<div class="list-group card_size d-flex">
+	{%for item in category_list %}
+	<a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+		<div class="d-flex w-100 justify-content-between">
+			<h5 class="mb-1">{{item.name}}</h5>
+		</div>
+	</a>
+	{%endfor%}
+	{% buttons %}
+	<form action="/addCategory" method="get">
+		<button type="submit" class="btn btn-primary">Add</button>
+	</form>
+	{% endbuttons %}
+</div>

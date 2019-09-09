@@ -1,0 +1,19 @@
+{%load static%}
+{%load bootstrap4 %}
+{%include header%}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<div class="list-group card_size d-flex">
+	<form action="/categories/" method="post" class="form">
+		{% csrf_token %}
+		{% bootstrap_form form %}
+		{% buttons %}
+		<button type="submit" class="btn btn-primary">Ok</button>
+		{% endbuttons %}
+	</form>
+</div>
+{%include footer%}

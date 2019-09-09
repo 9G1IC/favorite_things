@@ -80,11 +80,8 @@ class FavoriteNew(generics.CreateAPIView):
         data = request.data
         serializer = FavoriteSerializer(data=data)
             
-            
-        import pdb;pdb.set_trace()
         if not serializer.is_valid():
                 #Use the same form to display the errors
-            import pdb;pdb.set_trace()
             return Response({"title": title, "header": header, "footer": footer,
 		"favorite_list": [{"title":"Unable to save","description":str(serializer.error_messages)}] })
         serializer.save()
