@@ -3,7 +3,7 @@ attrs==19.1.0
 backcall==0.1.0
 beautifulsoup4==4.8.0
 decorator==4.4.0
-Django==2.2.5
+Django==2.2.27
 django-bootstrap-themes==3.3.6
 django-bootstrap4==1.0.1
 django-hstore==1.4.2
